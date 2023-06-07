@@ -2,26 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply bg-black text-gray-50 text-base font-sans
+}
+
+.login-button {
+@apply bg-gray-800 bg-opacity-50 ring-2 ring-opacity-50 ring-gray-600 rounded-full px-4 py-2  hover:bg-gray-600/50 hover:ring-gray-400/50 focus:outline-none focus:ring-gray-400/50 focus:bg-gray-600/50 text-lg text-center transition-all delay-100 mx-auto
 }

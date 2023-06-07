@@ -1,3 +1,5 @@
+"use client";
+
 import { Models } from "appwrite";
 import React, { use, useEffect, useState } from "react";
 import { account } from "../_utils/config";
