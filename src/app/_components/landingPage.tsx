@@ -3,25 +3,26 @@
 import Link from "next/link";
 import { useAuth } from "../_hooks/useAuth";
 import LoadingSpinner from "./loadingSpinner";
-import { useRouter } from "next/navigation";
+import { dataouter, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import usedata from "../_queries/useUser";
 
 export default function LandingPage() {
-  const { user } = useAuth();
+  const { data } = usedata();
 
   const router = useRouter();
 
   useEffect(() => {
-    if (user) {
+    if (data) {
       router.push("profile");
     }
-  }, [user]);
+  }, [data]);
 
-  if (user) {
+  if (data) {
     return (
       <div className="flex items-center justify-center flex-col gap-16 p-4">
         <h1 className="text-7xl font-extrabold tracking-wide">
-          Welcome back, {user.name}
+          Welcome back, {data.name}
         </h1>
         <LoadingSpinner size={32} />
       </div>

@@ -6,6 +6,7 @@ import { account } from "../_utils/config";
 import { OAuthProvider } from "../_utils/types";
 import { AuthContext } from "../_hooks/useAuth";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import useUser from "../_queries/useUser";
 
 export default function AuthProvider({
   children,
@@ -14,10 +15,7 @@ export default function AuthProvider({
 }) {
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["user"],
-    queryFn: async () => await account.get(),
-  });
+  const { data, isLoading } = useUser();
 
   let user: Models.User<Models.Preferences> | null = null;
 
