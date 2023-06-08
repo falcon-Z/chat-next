@@ -1,3 +1,4 @@
+import AuthProvider from "./_providers/authProvider";
 import QueryProvider from "./_utils/queryProvider";
 import "./globals.css";
 import { Inter } from "next/font/google";
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

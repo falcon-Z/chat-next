@@ -5,32 +5,27 @@ import React, { use, useEffect, useState } from "react";
 import { account } from "../_utils/config";
 import { OAuthProvider } from "../_utils/types";
 import { AuthContext } from "../_hooks/useAuth";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export default function AuthProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<Models.User<Models.Preferences> | null>(
-    null
-  );
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    try {
-      async () => {
-        const user = await account.get();
+  const { data, isLoading } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => await account.get(),
+  });
 
-        if (user.$id) {
-          setUser(user);
-        }
-      };
-    } catch {
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  let user: Models.User<Models.Preferences> | null = null;
+
+  if (data?.$id) {
+    user = data;
+  }
+
+  const loading: boolean = isLoading;
 
   const login = async (provider: OAuthProvider) => {
     if (provider == "github") {
@@ -43,9 +38,8 @@ export default function AuthProvider({
   };
 
   const logout = async () => {
-    await account.deleteSession("current").then(() => {
-      setUser(null);
-    });
+    await account.deleteSession("current");
+    queryClient.invalidateQueries();
   };
 
   return (

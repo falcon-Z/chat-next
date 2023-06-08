@@ -1,5 +1,4 @@
 import { Models } from "appwrite";
-import { promises } from "dns";
 import { createContext, useContext, useState, useEffect } from "react";
 import { OAuthProvider } from "../_utils/types";
 
