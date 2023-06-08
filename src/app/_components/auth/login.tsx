@@ -8,15 +8,16 @@ import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
 import LoadingSpinner from "../loadingSpinner";
 import useSession from "@falcon-z/app/_queries/useSession";
+import useUser from "@falcon-z/app/_queries/useUser";
 
 export default function Login() {
-  const { data, isLoading } = useSession();
+  const { data, isLoading } = useUser();
 
   const router = useRouter();
 
   useEffect(() => {
     if (data?.$id) {
-      router.push("profile");
+      router.replace("profile");
     }
   }, [data]);
 
@@ -32,7 +33,7 @@ export default function Login() {
         </div>
         <div>Login</div>
       </h2>
-      <OAuthLoginButton provider="github" />
+      <OAuthLoginButton provider="github" loading={isLoading} />
     </div>
   );
 }

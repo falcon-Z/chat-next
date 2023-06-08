@@ -4,23 +4,24 @@ import { useAuth } from "@falcon-z/app/_hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import LogoutButton from "../auth/logoutButton";
+import useUser from "@falcon-z/app/_queries/useUser";
 
 export default function UserProfile() {
-  const { user } = useAuth();
+  const { data } = useUser();
   const router = useRouter();
 
   useEffect(() => {
-    if (user == null) {
-      router.push("auth");
+    if (!data) {
+      router.replace("auth");
     }
-  }, [user]);
+  }, [data]);
 
   return (
     <div className="flex flex-col justify-center items-center">
       <h3 className="text-center text-4xl font-semibold tracking-wide">
-        {user?.name}
+        {data?.name}
       </h3>
-      <p className="text-xl text-gray-300 text-center">{user?.email}</p>
+      <p className="text-xl text-gray-300 text-center">{data?.email}</p>
       <LogoutButton />
     </div>
   );
