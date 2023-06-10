@@ -7,20 +7,8 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
 import LoadingSpinner from "../loadingSpinner";
-import useSession from "@falcon-z/app/_queries/useSession";
-import useUser from "@falcon-z/app/_queries/useUser";
 
-export default function Login() {
-  const { data, isLoading } = useUser();
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (data?.$id) {
-      router.replace("profile");
-    }
-  }, [data]);
-
+export default function Login({ isLoading }: { isLoading: boolean }) {
   return (
     <div className="bg-gray-950 bg-opacity-50 border-2 border-gray-800 border-opacity-50  p-4 w-full max-w-md rounded-2xl space-y-8 ">
       <h2 className="text-center text-5xl flex flex-col items-center justify-center gap-4">

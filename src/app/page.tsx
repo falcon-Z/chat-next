@@ -9,12 +9,11 @@ import { useEffect } from "react";
 export default function Home() {
   const { data } = useUser();
   const router = useRouter();
-
-  useEffect(() => {
-    if (data) {
-      router.replace("profile");
-    }
-  }, [data]);
+useEffect(() => {
+  if (data) {
+    router.replace("profile");
+  }
+}, [data]);
 
   return (
     <main className="min-h-screen grid place-items-center">
