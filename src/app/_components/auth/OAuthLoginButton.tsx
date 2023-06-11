@@ -11,15 +11,12 @@ export default function OAuthLoginButton({
   provider: OAuthProvider;
   loading: boolean;
 }) {
-  const [isLoading, setIsLoading] = useState(loading);
-
   return (
     <button
       type="button"
       disabled={loading}
       className="login-button w-full"
       onClick={() => {
-        setIsLoading(true);
         OAuthLogin(provider);
       }}
     >

@@ -1,5 +1,12 @@
 import { avatars } from "@falcon-z/app/_utils/config";
 
+type UserInfoFromGIthub = {
+  avatar: URL;
+  bio: string;
+  github_url: URL;
+  username: string;
+};
+
 export default async function getUserInfoFromGithub(token: string) {
   const response = await fetch("https://api.github.com/user", {
     headers: {
@@ -16,5 +23,5 @@ export default async function getUserInfoFromGithub(token: string) {
     bio: data.bio,
     username: data.login,
     github_url: data.html_url,
-  };
+  } as UserInfoFromGIthub;
 }

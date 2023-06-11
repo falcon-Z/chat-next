@@ -2,12 +2,9 @@ import LogoutButton from "../auth/logoutButton";
 import Image from "next/image";
 import Link from "next/link";
 import { Models } from "appwrite";
+import { Mode } from "fs";
 
-export default function UserProfile({
-  data,
-}: {
-  data: Models.User<Models.Preferences>;
-}) {
+export default function UserProfile({ data }: { data: Models.User<Mode.prefs> }) {
   return (
     <div className="flex flex-col justify-center items-center gap-4">
       <Image
