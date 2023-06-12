@@ -1,7 +1,6 @@
 import { Models } from "appwrite";
 import { createContext, useContext } from "react";
 import { OAuthProvider } from "../_utils/types";
-import Logout from "../_helpers/auth/logout";
 
 type AuthContextType = {
   user: Models.User<Models.Preferences> | null;

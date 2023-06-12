@@ -12,16 +12,18 @@ export default async function getUserInfoFromGithub(token: string) {
     headers: {
       Authorization: `token ${token}`,
     },
-  });
-  const data = await response.json();
+  }).then((res) => res.json());
 
-  console.log(data);
+  const avatar = avatars.getImage(response.avatar_url);
 
-  const avatar = avatars.getImage(data.avatar_url);
-  return {
+  const data = {
     avatar: avatar,
-    bio: data.bio,
-    username: data.login,
-    github_url: data.html_url,
+    bio: response.bio,
+    username: response.login,
+    github_url: response.html_url,
   } as UserInfoFromGIthub;
+
+  return data;
 }
+
+

@@ -13,8 +13,8 @@ export default function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!use) {
-      router.replace("auth");
+    if (user) {
+      router.replace("profile");
     }
   }, [user]);
 

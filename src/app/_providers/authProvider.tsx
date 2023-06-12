@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import { use, useEffect, useState } from "react";
 import useSession from "../_queries/useSession";
 import useUser from "../_queries/useUser";
 import useUserPrefs from "../_queries/useUserPrefs";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import getUserInfoFromGithub from "../_helpers/users/getUserProfileFromGithub";
 import { account } from "../_utils/config";
@@ -15,11 +17,10 @@ export default function AuthProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] =
     useState<Models.User<Models.Preferences> | null>(null);
 
-  const searchparams = useSearchParams();
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -28,40 +29,46 @@ export default function AuthProvider({
   const prefs = useUserPrefs();
 
   const addUserInfoToPrefs = useMutation({
-    mutationFn: (data: any) => account.updatePrefs(data),
+    mutationFn: (token: string) =>
+      getUserInfoFromGithub(token)
+        .then((data) => account.updatePrefs(data))
+        .then((data) => data),
     onMutate: () => setLoading(true),
-    onSuccess: () =>
-      queryClient.invalidateQueries(["user", "session", "prefs"]),
+    onSuccess(data) {
+      setCurrentUser(data);
+      queryClient.invalidateQueries();
+    },
   });
 
   useEffect(() => {
-    if (user.isLoading || session.isLoading || prefs.isLoading) {
-      setLoading(true);
-    }
-
     if (user.isSuccess && session.isSuccess && prefs.isSuccess) {
-      const token = session.data.providerAccessToken;
-
-      if (searchparams.has("success") && Object.keys(prefs.data).length == 0) {
-        setLoading(true);
-        if (session.data.provider == "github") {
-          const getGithubProfile = useQuery({
-            queryKey: ["githubProfile", token],
-            queryFn: () => getUserInfoFromGithub(token),
-            onSuccess(data) {
-              () => addUserInfoToPrefs.mutate(data);
-            },
-          });
-          if (getGithubProfile.isLoading) {
-            setLoading(true);
-          }
-        }
-      } else {
+      if (Object.keys(prefs.data).length > 0) {
         setCurrentUser(user.data);
-        setLoading(false);
+      } else {
+        if (session.data.provider == "github") {
+          addUserInfoToPrefs.mutate(session.data.providerAccessToken);
+        }
       }
+    } else if (user.isLoading || session.isLoading || prefs.isLoading) {
+      setLoading(true);
+    } else {
+      setLoading(false);
     }
-  }, [user, session, prefs]);
+  }, [
+    session.data,
+    user.data,
+    prefs.data,
+    user.isLoading,
+    session.isLoading,
+    prefs.isLoading,
+  ]);
+
+  useEffect(() => {
+    if (addUserInfoToPrefs.isSuccess) {
+      setCurrentUser(addUserInfoToPrefs.data);
+      router.replace("profile");
+    }
+  }, [addUserInfoToPrefs.isSuccess, addUserInfoToPrefs.data]);
 
   const OAuthLogin = async (provider: OAuthProvider) => {
     setLoading(true);
@@ -73,8 +80,8 @@ export default function AuthProvider({
   };
 
   const Logout = async () => {
-    account.deleteSession("current");
-    queryClient.invalidateQueries();
+    await account.deleteSession("current");
+    await queryClient.resetQueries();
     setCurrentUser(null);
     router.replace("auth");
   };
