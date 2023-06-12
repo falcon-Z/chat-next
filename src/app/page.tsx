@@ -5,19 +5,20 @@ import LandingPage from "./_components/landingPage";
 import WelcomePage from "./_components/welcomePage";
 import useUser from "./_queries/useUser";
 import { useEffect } from "react";
+import useAuth from "./_hooks/useAuth";
 
 export default function Home() {
-  const { data } = useUser();
+  const { user } = useAuth();
   const router = useRouter();
-useEffect(() => {
-  if (data) {
-    router.replace("profile");
-  }
-}, [data]);
+  useEffect(() => {
+    if (user) {
+      router.replace("profile");
+    }
+  }, [user]);
 
   return (
     <main className="min-h-screen grid place-items-center">
-      {data ? <WelcomePage name={data?.name} /> : <LandingPage />}
+      {user ? <WelcomePage name={user.name} /> : <LandingPage />}
     </main>
   );
 }

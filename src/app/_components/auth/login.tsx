@@ -1,27 +1,37 @@
 "use client";
 
-import { useAuth } from "@falcon-z/app/_hooks/useAuth";
-import IconWrapper from "../wrappers/iconWrapper";
 import OAuthLoginButton from "./OAuthLoginButton";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
 import LoadingSpinner from "../loadingSpinner";
+import AnnonymousLogin from "./annonymousLogin";
+import useAuth from "@falcon-z/app/_hooks/useAuth";
+import { use, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default function Login({ isLoading }: { isLoading: boolean }) {
+export default function Login() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!use) {
+      router.replace("auth");
+    }
+  }, [user]);
+
   return (
     <div className="bg-gray-950 bg-opacity-50 border-2 border-gray-800 border-opacity-50  p-4 w-full max-w-md rounded-2xl space-y-8 ">
       <h2 className="text-center text-5xl flex flex-col items-center justify-center gap-4">
         <Icon
           icon={"carbon:login"}
-          className={`${isLoading ? "hidden" : "block"}`}
+          className={`${loading ? "hidden" : "block"}`}
         />
-        <div className={`${isLoading ? "block" : "hidden"} w-full`}>
+        <div className={`${loading ? "block" : "hidden"} w-full`}>
           <LoadingSpinner size={8} />
         </div>
         <div>Login</div>
       </h2>
-      <OAuthLoginButton provider="github" loading={isLoading} />
+      <OAuthLoginButton provider="github" />
+      <AnnonymousLogin />
     </div>
   );
 }
