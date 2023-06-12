@@ -1,21 +1,9 @@
 "use client";
 
-import { account } from "@falcon-z/app/_utils/config";
-import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import useAuth from "@falcon-z/app/_hooks/useAuth";
 
 export default function LogoutButton() {
-  const router = useRouter();
-
-  const queryClienet = useQueryClient();
-
-  async function Logout() {
-    await account.deleteSession("current");
-    await queryClienet.invalidateQueries();
-    await queryClienet.resetQueries();
-    router.replace("auth");
-  }
-
+  const { Logout } = useAuth();
   return (
     <button
       type="button"

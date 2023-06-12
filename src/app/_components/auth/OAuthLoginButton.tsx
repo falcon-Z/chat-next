@@ -1,16 +1,11 @@
 "use client";
 
-import OAuthLogin from "@falcon-z/app/_helpers/auth/oAuthLogin";
+import useAuth from "@falcon-z/app/_hooks/useAuth";
 import { OAuthProvider } from "@falcon-z/app/_utils/types";
-import { useState } from "react";
 
-export default function OAuthLoginButton({
-  provider,
-  loading,
-}: {
-  provider: OAuthProvider;
-  loading: boolean;
-}) {
+export default function OAuthLoginButton({ provider }: { provider: OAuthProvider }) {
+  const { loading, OAuthLogin } = useAuth();
+
   return (
     <button
       type="button"
