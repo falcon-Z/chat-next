@@ -29,14 +29,14 @@ export default function AuthProvider({
   const prefs = useUserPrefs();
 
   const addUserInfoToPrefs = useMutation({
-    mutationFn: (token: string) =>
-      getUserInfoFromGithub(token)
+    mutationFn: async (token: string) =>
+      await getUserInfoFromGithub(token)
         .then((data) => account.updatePrefs(data))
         .then((data) => data),
     onMutate: () => setLoading(true),
     onSuccess(data) {
       setCurrentUser(data);
-      queryClient.invalidateQueries();
+      queryClient.resetQueries();
     },
   });
 
