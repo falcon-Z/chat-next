@@ -9,14 +9,8 @@ import { use, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
-  const { user, loading } = useAuth();
-  const router = useRouter();
+  const { loading } = useAuth();
 
-  useEffect(() => {
-    if (user) {
-      router.replace("profile");
-    }
-  }, [user]);
 
   return (
     <div className="bg-gray-950 bg-opacity-50 border-2 border-gray-800 border-opacity-50  p-4 w-full max-w-md rounded-2xl space-y-8 ">

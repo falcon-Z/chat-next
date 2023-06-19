@@ -28,7 +28,7 @@ export default function AuthProvider({
   const session = useSession();
   const prefs = useUserPrefs();
 
-  const addUserInfoToPrefs = useMutation({
+  const setUserPrefsFromGithub = useMutation({
     mutationFn: async (token: string) =>
       await getUserInfoFromGithub(token)
         .then((data) => account.updatePrefs(data))
@@ -46,7 +46,7 @@ export default function AuthProvider({
         setCurrentUser(user.data);
       } else {
         if (session.data.provider == "github") {
-          addUserInfoToPrefs.mutate(session.data.providerAccessToken);
+          setUserPrefsFromGithub.mutate(session.data.providerAccessToken);
         }
       }
     } else if (user.isLoading || session.isLoading || prefs.isLoading) {
@@ -63,27 +63,27 @@ export default function AuthProvider({
     prefs.isLoading,
   ]);
 
-  useEffect(() => {
-    if (addUserInfoToPrefs.isSuccess) {
-      setCurrentUser(addUserInfoToPrefs.data);
-      router.replace("profile");
-    }
-  }, [addUserInfoToPrefs.isSuccess, addUserInfoToPrefs.data]);
-
   const OAuthLogin = async (provider: OAuthProvider) => {
     setLoading(true);
     account.createOAuth2Session(
       provider,
-      `${process.env.NEXT_PUBLIC_URI}auth?success`,
-      `${process.env.NEXT_PUBLIC_URI}auth?failed`
+      `${process.env.NEXT_PUBLIC_URI}?success`,
+      `${process.env.NEXT_PUBLIC_URI}?failed`
     );
   };
 
   const Logout = async () => {
-    await account.deleteSession("current");
-    await queryClient.resetQueries();
-    setCurrentUser(null);
-    router.replace("auth");
+    await account
+      .deleteSession("current")
+      .then(() => {
+        queryClient.resetQueries();
+        setCurrentUser(null);
+      })
+      .catch(() => {
+        setCurrentUser(null);
+        queryClient.setQueryData(["user"], () => null);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (

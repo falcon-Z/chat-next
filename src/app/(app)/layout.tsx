@@ -1,7 +1,12 @@
-export default function AppLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <main className="relative p-2 min-h-screen grid place-items-center">
-      {children}
-    </main>
-  );
+"use client";
+
+import useAuth from "../_hooks/useAuth";
+
+export default function AppLayout(props: {
+  children: React.ReactNode;
+  auth: React.ReactNode;
+  chat: React.ReactNode;
+}) {
+  const { user } = useAuth();
+  return <>{user ? props.chat : props.auth}</>;
 }
