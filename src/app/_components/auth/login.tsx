@@ -3,14 +3,20 @@
 import OAuthLoginButton from "./OAuthLoginButton";
 import { Icon } from "@iconify/react";
 import LoadingSpinner from "../loadingSpinner";
-import AnnonymousLogin from "./annonymousLogin";
 import useAuth from "@falcon-z/app/_hooks/useAuth";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
-  const { loading } = useAuth();
+  const { user, loading } = useAuth();
 
+  const router = useRouter();
+
+  useEffect(() => {
+    if(user){
+      router.replace('chat')
+    }
+  },[user]);
 
   return (
     <div className="bg-gray-950 bg-opacity-50 border-2 border-gray-800 border-opacity-50  p-4 w-full max-w-md rounded-2xl space-y-8 ">
@@ -25,7 +31,6 @@ export default function Login() {
         <div>Login</div>
       </h2>
       <OAuthLoginButton provider="github" />
-      <AnnonymousLogin />
     </div>
   );
 }

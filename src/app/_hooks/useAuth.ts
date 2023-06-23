@@ -13,6 +13,7 @@ export const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
   OAuthLogin: async () => {},
+  annonymousLogin: async ()=>{},
   Logout: async () => {},
 });
 

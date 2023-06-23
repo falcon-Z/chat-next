@@ -1,3 +1,4 @@
+import BackgroundGradient from "./_components/backgroundGradient";
 import useAuth from "./_hooks/useAuth";
 import AuthProvider from "./_providers/authProvider";
 import QueryProvider from "./_utils/queryProvider";
@@ -23,6 +24,10 @@ export default function RootLayout(props: {
         <QueryProvider>
           <AuthProvider>
             <main className="relative p-2 min-h-screen grid place-items-center">
+              <div className="absolute inset-0 -z-30">
+                <BackgroundGradient />
+              </div>
+
               {props.children}
             </main>
           </AuthProvider>
