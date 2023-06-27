@@ -1,3 +1,9 @@
+import InboxHeader from "@falcon-z/app/_components/app/inbox/inboxHeader";
+
 export default function InboxPage() {
-  return <h1 className="text-5xl">Inbox</h1>;
+  return (
+    <div className="">
+      <InboxHeader />
+    </div>
+  );
 }
