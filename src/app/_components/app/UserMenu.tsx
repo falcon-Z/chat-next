@@ -12,13 +12,13 @@ export default function UserMenu() {
 
   return (
     <Menu>
-      <Menu.Button className=" ring-opacity-50 ring-gray-500  p-0.5 rounded-full focus:outline-none hover:ring-2 focus:ring-2 active:ring-0">
+      <Menu.Button className="  p-0.5 rounded-full ">
         <Image
           src={data?.avatar}
           width={48}
           height={48}
           alt="User Menu"
-          className=" ring-opacity-50 ring-gray-500 ring-offset-4 ring-offset-transparent object-center object-cover w-full h-full rounded-full shadow-inner hover:ring-2 focus:ring-2 active:ring-2"
+          className="  object-center object-cover w-full h-full rounded-full shadow-inner "
         />
       </Menu.Button>
       <Transition
@@ -31,7 +31,7 @@ export default function UserMenu() {
       >
         <Menu.Items
           className={
-            "rounded-2xl p-2 bg-gray-900 bg-opacity-75 border-2 border-gray-600 border-opacity-50 focus:outline-none "
+            "absolute top-2 rounded-2xl p-2 bg-gray-900 bg-opacity-75 border-2 border-gray-600 border-opacity-50 focus:outline-none "
           }
         >
           <div className="flex gap-4 items-center p-4">
