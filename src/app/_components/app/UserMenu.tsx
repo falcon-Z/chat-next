@@ -5,6 +5,7 @@ import useUserPrefs from "@falcon-z/app/_queries/useUserPrefs";
 import { Menu, Transition } from "@headlessui/react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function UserMenu() {
   const { data } = useUserPrefs();
@@ -31,7 +32,7 @@ export default function UserMenu() {
       >
         <Menu.Items
           className={
-            "absolute top-2 rounded-2xl p-2 bg-gray-900 bg-opacity-75 border-2 border-gray-600 border-opacity-50 focus:outline-none "
+            "rounded-2xl z-30 p-2 bg-gray-900 bg-opacity-75 border-2 border-gray-600 border-opacity-50 focus:outline-none "
           }
         >
           <div className="flex gap-4 items-center p-4">
@@ -52,6 +53,15 @@ export default function UserMenu() {
             </div>
           </div>
 
+          <Menu.Item>
+            <Link
+              href={"/settings"}
+              className="flex text-xl items-center gap-2 p-2  m-1 rounded-xl  ring-gray-500 ring-opacity-50 w-full focus:outline-none hover:ring-2 focus:ring-2 hover:bg-gray-700/50 focus:bg-gray-700/50 hover:shadow-sm focus:shadow-sm"
+            >
+              <Icon icon={"carbon:settings"} />
+              <span>Settings</span>
+            </Link>
+          </Menu.Item>
           <Menu.Item>
             <button
               type="button"
