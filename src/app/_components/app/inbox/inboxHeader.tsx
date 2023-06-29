@@ -1,4 +1,4 @@
-import UserMenu from "../UserMenu";
+import UserMenu from "../userMenu";
 
 export default function InboxHeader() {
   return (

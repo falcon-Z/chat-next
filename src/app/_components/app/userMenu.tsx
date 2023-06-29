@@ -13,13 +13,13 @@ export default function UserMenu() {
 
   return (
     <Menu>
-      <Menu.Button className="  p-0.5 rounded-full ">
+      <Menu.Button className="  rounded-full p-0.5 ">
         <Image
           src={data?.avatar}
           width={48}
           height={48}
           alt="User Menu"
-          className="  object-center object-cover w-full h-full rounded-full shadow-inner "
+          className="  h-full w-full rounded-full object-cover object-center shadow-inner "
         />
       </Menu.Button>
       <Transition
@@ -32,21 +32,21 @@ export default function UserMenu() {
       >
         <Menu.Items
           className={
-            "rounded-2xl z-30 p-2 bg-gray-900 bg-opacity-75 border-2 border-gray-600 border-opacity-50 focus:outline-none "
+            "absolute left-2 top-2  z-30 w-full max-w-screen-sm space-y-4 rounded-2xl border-2 border-gray-600 border-opacity-80 bg-gray-900 bg-opacity-75 p-2 backdrop-blur-md focus:outline-none"
           }
         >
-          <div className="flex gap-4 items-center p-4">
-            <Menu.Item>
+          <div className="flex items-center gap-4 p-2">
+            <div>
               <Image
                 src={data?.avatar}
                 width={64}
                 height={64}
                 alt="UserAvatar"
-                className="border-2 border-opacity-50 border-gray-700 border-spacing-4 object-center object-cover w-full h-full rounded-full shadow-inner"
+                className="h-full w-full border-spacing-4 rounded-full border-2 border-gray-700 border-opacity-50 object-cover object-center shadow-inner"
               />
-            </Menu.Item>
+            </div>
             <div>
-              <h4 className="text-2xl first-letter:uppercase font-semibold tracking-wide">
+              <h4 className="text-2xl font-semibold tracking-wide first-letter:uppercase">
                 {user?.name}
               </h4>
               <p className="text-sm text-gray-300">{user?.email}</p>
@@ -56,7 +56,7 @@ export default function UserMenu() {
           <Menu.Item>
             <Link
               href={"/settings"}
-              className="flex text-xl items-center gap-2 p-2  m-1 rounded-xl  ring-gray-500 ring-opacity-50 w-full focus:outline-none hover:ring-2 focus:ring-2 hover:bg-gray-700/50 focus:bg-gray-700/50 hover:shadow-sm focus:shadow-sm"
+              className="m-1 flex w-full items-center gap-2  rounded-xl p-2  text-xl ring-gray-500 ring-opacity-50 ui-active:bg-gray-700/50 ui-active:shadow-sm ui-active:ring-2 "
             >
               <Icon icon={"carbon:settings"} />
               <span>Settings</span>
@@ -66,7 +66,7 @@ export default function UserMenu() {
             <button
               type="button"
               onClick={() => Logout()}
-              className="flex text-xl items-center gap-2 p-2  m-1 rounded-xl  ring-gray-500 ring-opacity-50 w-full focus:outline-none hover:ring-2 focus:ring-2 hover:bg-gray-700/50 focus:bg-gray-700/50 hover:shadow-sm focus:shadow-sm"
+              className="m-1 flex w-full items-center gap-2  rounded-xl p-2  text-xl ring-gray-500 ring-opacity-50 ui-active:bg-gray-700/50 ui-active:shadow-sm ui-active:ring-2 "
             >
               <Icon icon={"carbon:logout"} />
               <span>Logout</span>
