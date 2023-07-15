@@ -15,5 +15,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@headlessui/tailwindcss")({ prefix: "ui" })],
+  plugins: [
+    require("@headlessui/tailwindcss")({ prefix: "ui" }),
+    require("daisyui"),
+  ],
 };

@@ -1,12 +1,8 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
-import useSession from "../_queries/useSession";
+import { useEffect, useState } from "react";
 import useUser from "../_queries/useUser";
-import useUserPrefs from "../_queries/useUserPrefs";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import getUserInfoFromGithub from "../_helpers/users/getUserProfileFromGithub";
+import { useQueryClient } from "@tanstack/react-query";
 import { account } from "../_utils/config";
 import { Models } from "appwrite";
 import { AuthContext } from "../_hooks/useAuth";

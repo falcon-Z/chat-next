@@ -14,7 +14,7 @@ export default function OAuthLoginButton({
     <button
       type="button"
       disabled={loading}
-      className="big-button w-full"
+      className="glass btn-block btn-circle btn "
       onClick={() => {
         OAuthLogin(provider);
       }}

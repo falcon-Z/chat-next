@@ -1,3 +1,4 @@
+import Image from "next/image";
 import BackgroundGradient from "./_components/backgroundGradient";
 import useAuth from "./_hooks/useAuth";
 import AuthProvider from "./_providers/authProvider";
@@ -23,11 +24,7 @@ export default function RootLayout(props: {
       <body className={inter.className}>
         <QueryProvider>
           <AuthProvider>
-            <main className="relative p-2 min-h-screen grid place-items-center">
-              <div className="absolute inset-0 -z-30">
-                <BackgroundGradient />
-              </div>
-
+            <main className="relative grid min-h-screen place-items-center p-2 ">
               {props.children}
             </main>
           </AuthProvider>
