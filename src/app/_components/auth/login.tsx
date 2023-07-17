@@ -18,7 +18,7 @@ export default function Login() {
   }, [router, user]);
 
   return (
-    <div className="card-bordered card  flex w-full max-w-md justify-center gap-8  p-4">
+    <div className="backdrop-blur+  card card-bordered flex w-full max-w-md justify-center gap-8 rounded-3xl  p-4  ">
       <h2 className="card-title flex flex-col items-center justify-center gap-4 text-center text-5xl">
         <Icon
           icon={"carbon:login"}

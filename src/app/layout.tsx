@@ -20,11 +20,15 @@ export default function RootLayout(props: {
   chat: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" data-theme="black">
       <body className={inter.className}>
         <QueryProvider>
           <AuthProvider>
-            <main className="relative grid min-h-screen place-items-center p-2 ">
+            <main className="relative grid min-h-screen place-items-center p-2">
+              <div className=" absolute inset-0">
+                <BackgroundGradient />
+              </div>
+
               {props.children}
             </main>
           </AuthProvider>

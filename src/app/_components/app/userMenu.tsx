@@ -8,18 +8,24 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function UserMenu() {
-  const { data } = useUserPrefs();
+  const { data, isLoading } = useUserPrefs();
   const { user, Logout } = useAuth();
 
   return (
     <Menu>
-      <Menu.Button className="  rounded-full p-0.5 ">
+      <Menu.Button className=" avatar rounded-full p-0.5 ring-2 ring-primary ring-offset-2 ring-offset-base-100">
+        <span
+          className={`loading loading-spinner loading-lg  ${
+            isLoading ? "block" : "hidden"
+          }`}
+        ></span>
+
         <Image
           src={data?.avatar}
           width={48}
           height={48}
+          className={`rounded-full ${isLoading ? "hidden" : "block"}`}
           alt="User Menu"
-          className="  h-full w-full rounded-full object-cover object-center shadow-inner "
         />
       </Menu.Button>
       <Transition
@@ -32,17 +38,22 @@ export default function UserMenu() {
       >
         <Menu.Items
           className={
-            "absolute left-2 top-2  z-30 w-full max-w-screen-sm space-y-4 rounded-2xl border-2 border-gray-600 border-opacity-80 bg-gray-900 bg-opacity-75 p-2 backdrop-blur-md focus:outline-none"
+            "menu absolute left-2  top-2 z-10 rounded-2xl bg-base-200 focus:outline-none"
           }
         >
-          <div className="flex items-center gap-4 p-2">
-            <div>
+          <span
+            className={`loading loading-spinner loading-lg ${
+              isLoading ? "block" : "hidden"
+            }`}
+          />
+          <div className="flex items-center gap-4 p-2  ">
+            <div className=" avatar">
               <Image
                 src={data?.avatar}
                 width={64}
                 height={64}
                 alt="UserAvatar"
-                className="h-full w-full border-spacing-4 rounded-full border-2 border-gray-700 border-opacity-50 object-cover object-center shadow-inner"
+                className=" rounded-full"
               />
             </div>
             <div>

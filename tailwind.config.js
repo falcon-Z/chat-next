@@ -9,6 +9,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
+        connection: "url('/connection1.jpg')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
@@ -16,7 +17,11 @@ module.exports = {
     },
   },
   plugins: [
+    require("@tailwindcss/typography"),
     require("@headlessui/tailwindcss")({ prefix: "ui" }),
     require("daisyui"),
   ],
+  daisyui: {
+    themes: ["black"],
+  },
 };
